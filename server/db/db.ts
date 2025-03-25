@@ -15,7 +15,7 @@ export async function getAllTodos(): Promise<Todo[]> {
 }
 
 export async function addNewTodo(todoData: Tododata): Promise<number> {
-  const [idObj] = await connection('todos')
+  const idObj = await connection('todos')
     .insert({
       task: todoData.task,
       is_complete: todoData.isComplete,
@@ -24,6 +24,7 @@ export async function addNewTodo(todoData: Tododata): Promise<number> {
       due_date: todoData.dueDate,
     })
     .returning('id')
+  const { id } = idObj[0]
 
-  return idObj.id
+  return id
 }

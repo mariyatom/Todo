@@ -11,3 +11,6 @@ export interface Tododata {
 export interface Todo extends Tododata {
   id: number
 }
+export interface idAddTodo {
+  id: number
+}

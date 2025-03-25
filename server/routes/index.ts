@@ -8,7 +8,7 @@ const router = Router()
 router.get('/', async (req, res, next) => {
   try {
     const todos = await db.getAllTodos()
-    res.json({ todos })
+    res.json(todos)
   } catch (e) {
     next(e)
   }
@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
       dueDate,
     }
     const id = await db.addNewTodo(newTodo)
-    res.status(201).json({ id: id })
+    res.status(201).json({ id })
   } catch (e) {
     next(e)
   }

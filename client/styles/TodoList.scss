@@ -1,0 +1,86 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fb;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Container */
+.todo-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #e74c3c;
+}
+
+/* Todo List */
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ecf0f1;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.todo-item:hover {
+  background-color: #dfe6e9;
+  transform: scale(1.02);
+}
+
+.todo-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-task {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.todo-task.completed {
+  text-decoration: line-through;
+  color: #95a5a6;
+}
+
+.todo-status {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.completed {
+  color: #2ecc71;
+}
+
+.pending {
+  color: #f39c12;
+}
