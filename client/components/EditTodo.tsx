@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import TodoForm from './TodoForm'
-import { useTodoById, useUpdateTodo } from '../hooks/useTodo'
+import { useDeleteTodo, useTodoById, useUpdateTodo } from '../hooks/useTodo'
 import { TodoData } from '../../model/Todo'
 
 export default function EditTodo() {
@@ -10,7 +10,7 @@ export default function EditTodo() {
   const navigate = useNavigate()
   const { data: todo, isPending } = useTodoById(todoId)
   const updateTodo = useUpdateTodo()
-
+  const deleteTodo = useDeleteTodo()
   const [formState, setFormState] = useState<TodoData | null>(null)
 
   useEffect(() => {
@@ -26,11 +26,18 @@ export default function EditTodo() {
     navigate('/') // Redirect to todo list
   }
 
+  const handleDelete = async (id: number) => {
+    await deleteTodo.mutateAsync(id) // Call the delete function from the custom hook
+    navigate('/') // Redirect to todo list after deleting
+  }
+
   return (
     <TodoForm
       {...formState}
       submitLabel="Update Task"
       onSubmit={handleSubmit}
+      onDelete={handleDelete} // Pass the handleDelete function
+      id={todoId} // Pass the todo's ID for deletion
     />
   )
 }

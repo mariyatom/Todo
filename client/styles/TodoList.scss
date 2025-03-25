@@ -1,9 +1,4 @@
-// /* Global styles */
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-// }
+
 
 // body {
 //   font-family: 'Arial', sans-serif;
@@ -42,23 +37,37 @@ h2 {
 
 .todo-item {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background-color: #ecf0f1;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+
+  &:hover {
+    background: #f8f8f8;
+  }
 }
 
-.todo-item:hover {
-  background-color: #dfe6e9;
-  transform: scale(1.02);
+.delete-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ff4d4d;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #d32f2f;
+  }
 }
+
 
 .todo-content {
   display: flex;
   flex-direction: column;
+}
+.todo-content:hover{
+  color:blueviolet
 }
 
 .todo-task {
@@ -69,7 +78,7 @@ h2 {
 
 .todo-task.completed {
   text-decoration: line-through;
-  color: #95a5a6;
+  color: #2ecc71;
 }
 
 .todo-status {
@@ -77,10 +86,10 @@ h2 {
   color: #7f8c8d;
 }
 
-.completed {
+.todo-status.completed {
   color: #2ecc71;
 }
 
-.pending {
+.todo-status.pending {
   color: #f39c12;
 }

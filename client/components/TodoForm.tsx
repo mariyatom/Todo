@@ -1,10 +1,13 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
 import { TodoData } from '../../model/Todo'
+import { Trash2 } from 'lucide-react'
 import '../styles/TodoForm.scss'
 
 interface Props extends TodoData {
   submitLabel: string
   onSubmit: (_: TodoData) => void
+  onDelete: (_: number) => void // Added onDelete function prop
+  id: number // Assuming you have an ID for the todo to be deleted
 }
 
 export default function TodoForm({
@@ -15,6 +18,8 @@ export default function TodoForm({
   dueDate,
   submitLabel,
   onSubmit,
+  onDelete,
+  id, // Assuming an id is passed for deletion
 }: Props) {
   const [formState, setFormState] = useState<TodoData>({
     task,
@@ -95,6 +100,15 @@ export default function TodoForm({
       </label>
 
       <button>{submitLabel}</button>
+      {/* Delete button */}
+      <button
+        type="button"
+        className="delete-button"
+        onClick={() => onDelete(id)} // Call onDelete when clicked
+      >
+        <Trash2 size={18} /> {/* Trash icon */}
+        Delete
+      </button>
     </form>
   )
 }
