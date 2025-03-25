@@ -1,9 +1,9 @@
 export interface Tododata {
   task: string
   isComplete: boolean
-  priority: number
-  isFun: boolean
-  dueDate: string
+  priority?: number
+  isFun?: boolean
+  dueDate?: string
   createdAt?: string
   updateAt?: string
 }
