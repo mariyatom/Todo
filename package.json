@@ -68,6 +68,7 @@
     "express": "^4.17.2",
     "knex": "^2.5.1",
     "lucide-react": "^0.483.0",
+    "react-calendar": "^5.1.0",
     "sqlite3": "^5.1.7",
     "superagent": "^8.1.2"
   },

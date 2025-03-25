@@ -45,6 +45,15 @@ export default function TodoForm({
     onSubmit(formState) // Ensure `onSubmit` receives properly structured `TodoData`
   }
 
+  // Check if dueDate is defined before formatting
+  const formattedDueDate =
+    formState.dueDate &&
+    new Date(formState.dueDate).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+
   return (
     <form onSubmit={handleSubmit} className="form">
       <label className="label">Task</label>
@@ -77,6 +86,8 @@ export default function TodoForm({
         onChange={handleChange}
         value={formState.dueDate}
       />
+      {/* Display formatted date (e.g., March 26, 2025) */}
+      <p>{formattedDueDate}</p>
 
       <label>
         <input
