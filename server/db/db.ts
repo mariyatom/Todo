@@ -1,20 +1,22 @@
-import { Todo, Tododata } from '../../model/Todo.ts'
+import { Todo, TodoData } from '../../model/Todo.ts'
 import connection from './connection.ts'
 
 export async function getAllTodos(): Promise<Todo[]> {
-  return connection('todos').select(
-    'id',
-    'task',
-    'is_complete as isComplete',
-    'priority',
-    'is_fun as isFun',
-    'due_date as dueDate',
-    'created_at as createdAt',
-    'updated_at as UpdatedAt',
-  )
+  return connection('todos')
+    .select(
+      'id',
+      'task',
+      'is_complete as isComplete',
+      'priority',
+      'is_fun as isFun',
+      'due_date as dueDate',
+      'created_at as createdAt',
+      'updated_at as UpdatedAt',
+    )
+    .orderBy('updated_at', 'desc') // Orders in descending order
 }
 
-export async function addNewTodo(todoData: Tododata): Promise<number> {
+export async function addNewTodo(todoData: TodoData): Promise<number> {
   const idObj = await connection('todos')
     .insert({
       task: todoData.task,
@@ -27,4 +29,38 @@ export async function addNewTodo(todoData: Tododata): Promise<number> {
   const { id } = idObj[0]
 
   return id
+}
+
+export async function getTodoById(id: number): Promise<Event> {
+  const TodoById = await connection('todos')
+    .where({ id })
+    .select(
+      'id',
+      'task',
+      'is_complete as isComplete',
+      'priority',
+      'is_fun as isFun',
+      'due_date as dueDate',
+      'created_at as createdAt',
+      'updated_at as UpdatedAt',
+    )
+    .first()
+  return TodoById
+}
+
+export async function updateTodo(
+  id: number,
+  updatedTodo: Partial<TodoData>,
+): Promise<number> {
+  return await connection('todos').where({ id }).update({
+    task: updatedTodo.task,
+    is_complete: updatedTodo.isComplete,
+    priority: updatedTodo.priority,
+    is_fun: updatedTodo.isFun,
+    due_date: updatedTodo.dueDate,
+  })
+}
+
+export async function deleteTodo(id: number): Promise<number> {
+  return await connection('todos').where({ id }).del()
 }

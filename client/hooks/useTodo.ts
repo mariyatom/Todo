@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import * as API from '../apis/apiClient'
-import { Tododata } from '../../model/Todo'
+import { Todo, TodoData } from '../../model/Todo'
 
 export function useTodo() {
   return useQuery({
@@ -13,11 +13,11 @@ export function useCreateTodo() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (data: Tododata) => {
+    mutationFn: async (data: TodoData) => {
       const result = await API.createTodos(data)
       return result
     },
-    onSuccess: async () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] })
     },
     onError: (error: Error) => {
@@ -26,6 +26,44 @@ export function useCreateTodo() {
       } else {
         throw new Error('An unknown error occurred while creating a todo')
       }
+    },
+  })
+}
+export function useTodoById(id?: number) {
+  return useQuery({
+    queryKey: ['todo', id], // Use a unique query key for each todo
+    queryFn: async () => {
+      if (!id) throw new Error('Todo ID is required')
+      return API.fetchTodoById(id) // Fetch a specific todo from API,
+    },
+    enabled: !!id, // Only fetch when ID is available,!!id: This is a common trick in JavaScript to coerce a value into a boolean. It converts a value into true or false
+  })
+}
+
+export function useUpdateTodo() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (updatedTodo: Todo) => {
+      console.log('updateTo Do after updation', updatedTodo)
+      return API.updateTodo(updatedTodo.id, updatedTodo)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
+}
+
+export function useDeleteTodo() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: API.deleteTodoById,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+    onError: (error) => {
+      console.error('Error deleting todo:', error)
     },
   })
 }
