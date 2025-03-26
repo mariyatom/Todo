@@ -87,7 +87,7 @@ router.delete('/:id', async (req, res, next) => {
 
 // PUT endpoint to archive all completed todos
 router.put('/archive-completed', async (req, res, next) => {
-  console.log('entering to archive-completed')
+  // console.log('entering to archive-completed')
   try {
     const updatedCount = await db.archiveCompletedTodos()
     res.status(200).json({ updated: updatedCount })

@@ -53,7 +53,7 @@ export async function updateTodo(id: number, data: TodoData) {
 
 export async function archiveCompletedTodos() {
   try {
-    console.log('Sending PATCH request to archive completed todos') // Debugging line
+    // console.log('Sending PATCH request to archive completed todos') // Debugging line
 
     const res = await request.put(`${rootUrl}/todos/archive-completed`)
     return res.body
