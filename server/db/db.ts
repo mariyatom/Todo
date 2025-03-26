@@ -21,7 +21,7 @@ export async function addNewTodo(todoData: TodoData): Promise<number> {
   const idObj = await connection('todos')
     .insert({
       task: todoData.task,
-      is_complete: todoData.isComplete ?? false, // Ensure default value
+      is_complete: todoData.isComplete,
       priority: todoData.priority,
       is_fun: todoData.isFun,
       due_date: todoData.dueDate,

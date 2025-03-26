@@ -17,9 +17,10 @@ h2 {
   max-width: 600px;
   margin: 10px auto;
   padding: 11px;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
 /* Loading and Error States */
@@ -36,6 +37,7 @@ h2 {
 }
 
 .todo-item {
+  background-color: #f9f9f9;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,12 +55,13 @@ h2 {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #ff4d4d;
+  color: #490606;
   transition: color 0.2s;
   margin-left: 25px;
 
   &:hover {
-    color: #d32f2f;
+    color: #450b0b;
+    background-color: #474545;
   }
 }
 
@@ -74,17 +77,19 @@ h2 {
 .todo-task {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #34495e;
 }
 
 .todo-task.completed {
   text-decoration: line-through;
-  color: #2ecc71;
+  
+  color: #09460b;
+
 }
 
 .todo-status {
   font-size: 0.9rem;
-  color: #7f8c8d;
+  color: #09460b;
+
 }
 
 .todo-status.completed {
@@ -129,8 +134,8 @@ h2 {
     .clear-button {
       padding: 8px 12px;
       border: none;
-      border-radius: 3px;
-      background-color: transparent;
+      border-radius: 4px;
+      background-color: #277177;
       color: inherit;
       cursor: pointer;
       transition: text-decoration 0.3s ease;
