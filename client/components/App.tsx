@@ -1,23 +1,29 @@
 import { useState } from 'react'
 import AddTodo from './AddTodo.tsx'
 import TodoList from './TodoList.tsx'
-import { useTodo } from '../hooks/useTodo.ts'
+import { useArchiveCompletedTodos } from '../hooks/useTodo.ts'
 
 function App() {
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all')
-  const { data: todos, mutate: updateTodos } = useTodo()
+
+  //const archiveCompletedTodosMutation = useArchiveCompletedTodos()// method 1
+  const { mutate: archiveCompletedTodos, isPending: isArchiving } =
+    useArchiveCompletedTodos() // methode 2
 
   const handleFilterChange = (newFilter: 'all' | 'active' | 'completed') => {
     setFilter(newFilter)
   }
 
   const handleClearCompleted = () => {
-    if (todos) {
-      const incompleteTodos = todos.filter((todo) => !todo.isComplete)
-      updateTodos(incompleteTodos) // Update the todos state with only incomplete ones
+    // if (archiveCompletedTodosMutation.mutate) { // method 1
+    //   archiveCompletedTodosMutation.mutate()
+    // }
+
+    // methode2
+    if (archiveCompletedTodos) {
+      archiveCompletedTodos()
     }
   }
-
   return (
     <>
       <header className="header">
@@ -50,8 +56,9 @@ function App() {
           <button
             className="clear-completed clear-button"
             onClick={handleClearCompleted}
+            disabled={isArchiving}
           >
-            Clear completed
+            {isArchiving ? 'Clearing...' : 'Clear completed'}
           </button>
         </div>
       </footer>

@@ -66,7 +66,6 @@ router.patch('/:id', async (req, res, next) => {
       dueDate,
     }
     await db.updateTodo(id, updatedEvent) // Update the Todo in DB
-    // if no todo has a matching id, respond with a 404 instead
     res.sendStatus(204)
   } catch (e) {
     next(e)
@@ -81,6 +80,17 @@ router.delete('/:id', async (req, res, next) => {
       return res.status(404).json({ error: 'Event not found' })
     }
     res.sendStatus(204) // No content (successful deletion)
+  } catch (e) {
+    next(e)
+  }
+})
+
+// PUT endpoint to archive all completed todos
+router.put('/archive-completed', async (req, res, next) => {
+  console.log('entering to archive-completed')
+  try {
+    const updatedCount = await db.archiveCompletedTodos()
+    res.status(200).json({ updated: updatedCount })
   } catch (e) {
     next(e)
   }

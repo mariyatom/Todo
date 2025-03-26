@@ -15,16 +15,23 @@ export default function TodoList({ filter }: TodoListProps) {
   if (isError) return <p className="error">Woopsie, something went wrong!</p>
 
   const filteredTodos = todos?.filter((todo) => {
-    if (filter === 'all') {
-      return true
-    } else if (filter === 'active') {
-      return !todo.isComplete
-    } else if (filter === 'completed') {
+    if (filter === 'completed') {
       return todo.isComplete
     }
-    return true // Default to showing all if filter is unknown
-  })
+    if (todo.isArchived) {
+      return false // Don't show archived todos in the main list
+    }
 
+    switch (filter) {
+      case 'all':
+        return true
+      case 'active':
+        return !todo.isComplete
+
+      default:
+        return true // Default to showing all if filter is unknown
+    }
+  })
   return (
     <div className="todo-container">
       <h2 className="todo-header">Todo List</h2>
@@ -52,8 +59,10 @@ export default function TodoList({ filter }: TodoListProps) {
                   e.stopPropagation()
                   navigate(`/edit/${todo.id}`)
                 }}
+                aria-label="Edit task"
               >
                 <Pencil size={18} />
+                <span className="visually-hidden">Edit task</span>
               </button>
               <button
                 className="delete-button"
@@ -61,8 +70,10 @@ export default function TodoList({ filter }: TodoListProps) {
                   e.stopPropagation()
                   deleteTodo.mutate(todo.id)
                 }}
+                aria-label="Delete task"
               >
                 <Trash2 size={18} />
+                <span className="visually-hidden">Delete task</span>
               </button>
             </div>
           </li>

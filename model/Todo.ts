@@ -1,6 +1,7 @@
 export interface TodoData {
   task: string
   isComplete: boolean
+  isArchived?: boolean
   priority?: number
   isFun?: boolean
   dueDate?: string

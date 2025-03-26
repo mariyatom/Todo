@@ -40,8 +40,22 @@ export async function fetchTodoById(id: number) {
 
 export async function updateTodo(id: number, data: TodoData) {
   try {
-    console.log('update To Do just before send to api', data)
     const res = await request.patch(`${rootUrl}/todos/${id}`).send(data)
+    return res.body
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    } else {
+      throw new Error('An unknown error occurred while updating the todo')
+    }
+  }
+}
+
+export async function archiveCompletedTodos() {
+  try {
+    console.log('Sending PATCH request to archive completed todos') // Debugging line
+
+    const res = await request.put(`${rootUrl}/todos/archive-completed`)
     return res.body
   } catch (error) {
     if (error instanceof Error) {

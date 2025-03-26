@@ -45,11 +45,24 @@ export function useUpdateTodo() {
 
   return useMutation({
     mutationFn: async (updatedTodo: Todo) => {
-      console.log('updateTo Do after updation', updatedTodo)
       return API.updateTodo(updatedTodo.id, updatedTodo)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
+}
+
+// Hook to archive all completed todos
+export const useArchiveCompletedTodos = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async () => {
+      return API.archiveCompletedTodos()
+    },
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] }) // Refetch todos to see the changes
     },
   })
 }

@@ -3,6 +3,7 @@ export function up(knex) {
     table.increments('id')
     table.string('task').notNullable()
     table.boolean('is_complete').defaultTo(false)
+    table.boolean('is_archived').defaultTo(false)
     table.integer('priority')
     table.boolean('is_fun').defaultTo(false)
     table.string('due_date')
