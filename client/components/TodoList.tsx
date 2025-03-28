@@ -8,7 +8,7 @@ interface TodoListProps {
 }
 export default function TodoList({ filter }: TodoListProps) {
   const { isPending, isError, data: todos } = useTodo()
-  const deleteTodo = useDeleteTodo()
+  const deleteTodo = useDeleteTodo() // permenent delete
   const navigate = useNavigate()
 
   if (isPending) return <p className="loading">Loading...</p>
@@ -19,7 +19,8 @@ export default function TodoList({ filter }: TodoListProps) {
       return todo.isComplete
     }
     if (todo.isArchived) {
-      return false // Don't show archived todos in the main list
+      return false // Don't show archived todos in the main list.
+      //  When clicking "Clear Completed," move completed items from the main list to the completed list.
     }
 
     switch (filter) {

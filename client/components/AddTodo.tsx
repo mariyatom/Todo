@@ -1,11 +1,18 @@
 // eslint-disable-next-line no-unused-vars
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useCreateTodo } from '../hooks/useTodo'
 
 export default function AddTodo() {
   const [task, setTask] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
   //const { mutate: createTodo } = useCreateTodo() // method 1
   const createTodo = useCreateTodo()
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus() // Set focus dynamically
+    }
+  }, []) // Runs only once when the component mounts
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,7 +43,7 @@ export default function AddTodo() {
       <input
         className="new-todo"
         placeholder="What needs to be done?"
-        autoFocus
+        ref={inputRef}
         value={task}
         onChange={(e) => setTask(e.target.value)}
         aria-label="Add a new task"
