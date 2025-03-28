@@ -39,8 +39,16 @@ export default function TodoList({ filter }: TodoListProps) {
         {filteredTodos?.map((todo) => (
           <li key={todo.id} className="todo-item">
             <div
+              role="button"
+              tabIndex={0}
+              aria-label={`Edit todo: ${todo.task}`}
               className="todo-content"
               onClick={() => navigate(`/edit/${todo.id}`)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  navigate(`/edit/${todo.id}`)
+                }
+              }}
             >
               <span
                 className={`todo-task ${todo.isComplete ? 'completed' : ''}`}

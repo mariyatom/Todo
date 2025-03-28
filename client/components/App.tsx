@@ -26,10 +26,9 @@ function App() {
   }
   return (
     <>
-      <header className="header">
-        <h1>todos</h1>
+      <div>
         <AddTodo />
-      </header>
+      </div>
       <section className="main">
         <TodoList filter={filter} /> {/* Pass the filter prop */}
       </section>

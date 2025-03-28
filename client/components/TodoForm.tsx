@@ -68,7 +68,6 @@ export default function TodoForm({
 
   return (
     <>
-      <h3>Todo Form</h3>
       <form onSubmit={handleSubmit} className="form">
         <label className="label" htmlFor="task">
           Task
