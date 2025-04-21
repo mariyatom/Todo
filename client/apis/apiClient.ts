@@ -38,7 +38,7 @@ export async function fetchTodoById(id: number) {
   return response.json()
 }
 
-export async function updateTodo(id: number, data: TodoData) {
+export async function updateTodo(id: number, data: Partial<TodoData>) {
   try {
     const res = await request.patch(`${rootUrl}/todos/${id}`).send(data)
     return res.body

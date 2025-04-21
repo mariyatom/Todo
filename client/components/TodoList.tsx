@@ -1,7 +1,8 @@
-import { useTodo, useDeleteTodo } from '../hooks/useTodo'
+import { useTodo, useDeleteTodo, useUpdateTodo } from '../hooks/useTodo'
 import { useNavigate } from 'react-router-dom'
 import { Trash2, Pencil } from 'lucide-react' // Import edit and trash icons
 import '../styles/TodoList.scss'
+import { ChangeEvent } from 'react'
 
 interface TodoListProps {
   filter: 'all' | 'active' | 'completed'
@@ -9,6 +10,8 @@ interface TodoListProps {
 export default function TodoList({ filter }: TodoListProps) {
   const { isPending, isError, data: todos } = useTodo()
   const deleteTodo = useDeleteTodo() // permenent delete
+  const updateTodo = useUpdateTodo()
+
   const navigate = useNavigate()
 
   if (isPending) return <p className="loading">Loading...</p>
@@ -33,6 +36,18 @@ export default function TodoList({ filter }: TodoListProps) {
         return true // Default to showing all if filter is unknown
     }
   })
+
+  const toggleComplete = (e: ChangeEvent<HTMLInputElement>, todoId: number) => {
+    e.stopPropagation()
+    const targetTodo = todos?.find((todo) => todo.id === todoId)
+    if (!targetTodo) return
+    const updatedTodo = {
+      ...targetTodo,
+      isComplete: !targetTodo.isComplete,
+    }
+    updateTodo.mutate(updatedTodo)
+  }
+
   return (
     <div className="todo-container">
       <h2 className="todo-header">Todo List</h2>
@@ -44,18 +59,28 @@ export default function TodoList({ filter }: TodoListProps) {
               tabIndex={0}
               aria-label={`Edit todo: ${todo.task}`}
               className="todo-content"
-              onClick={() => navigate(`/edit/${todo.id}`)}
+              onDoubleClick={() => navigate(`/edit/${todo.id}`)}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   navigate(`/edit/${todo.id}`)
                 }
               }}
             >
-              <span
-                className={`todo-task ${todo.isComplete ? 'completed' : ''}`}
-              >
-                {todo.task}
-              </span>
+              <input
+                type="checkbox"
+                className="toggle"
+                checked={todo.isComplete}
+                onChange={(evt) => toggleComplete(evt, todo.id)}
+                id={`todo-${todo.id}`}
+              />
+              <label htmlFor={`todo-${todo.id}`}>
+                <span
+                  className={`todo-task ${todo.isComplete ? 'completed' : ''}`}
+                >
+                  {todo.task}
+                </span>
+              </label>
+
               <p className="todo-status">
                 {todo.isComplete ? 'Completed' : 'Pending'} &nbsp;&nbsp; *** Due
                 : {todo?.dueDate ? todo?.dueDate : ''}
