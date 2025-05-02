@@ -4,18 +4,19 @@ As part of a Dev Academy Aotearoa project, I was challenged to complete and depl
 
 ### Tech stack:
 
-Node.js
-React
-ReactQuery
-TypeScript
-SCSS
-Knex
-SQLite3
-Express
-Superagent
-Vite
-Dokku
-Status:
+ - Node.js
+ - React
+ - ReactQuery
+ - TypeScript
+ - SCSS
+ - Knex
+ - SQLite3
+ - Express
+ - Superagent
+ - Vite
+ - Dokku
+
+### Status:
 
 This application is 93% complete. A user can perform the four CRUD operations (create, read, update, and delete).
 
